@@ -9,6 +9,10 @@ class QuestionnairePreprocessor:
         self.ROOT_DIR = self.config['root_dir']
         self.PICKLE_FILE = self.config['pickle_file']
 
+            # Debugging check
+        print(f"Checking directory: {self.ROOT_DIR}")
+        print(f"Exists: {os.path.exists(self.ROOT_DIR)}")
+
     QUESTIONNAIRE_MAPPING = {
         "pre": "pre_study_questionnaire",
         "post": "post_study_questionnaire",
@@ -56,7 +60,7 @@ class QuestionnairePreprocessor:
             participants.append(participant_data)
         return participants
 
-    def pickle_generator(self):
+    def preprocess(self):
         data = self.load_questionnaire_data()
         with open(self.PICKLE_FILE, "wb") as f:
             pickle.dump(data, f)
@@ -70,5 +74,5 @@ class QuestionnairePreprocessor:
 
 if __name__ == "__main__":
     processor = QuestionnairePreprocessor()
-    processor.pickle_generator()
+    processor.preprocess()
     processor.print_formatted_data()
